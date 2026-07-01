@@ -1,71 +1,35 @@
-## BUG-004 — Casino heist: crew member spawns inside a wall at heist start
+## BUG-004 — Casino heist finale: one crew member spawns stuck inside geometry
 
-**game:** GTA Online  
-**platform:** PC, PS4, PS5  
-**build:** v1.50+ — Diamond Casino Heist, all approaches  
-**logged:** July 2024  
-**last checked:** October 2025  
-**source:** community-sourced (3 sources verified)  
-**severity:** SEV-3  
-**priority:** P3  
-**status:** OPEN
-
----
+**game:** GTA Online
+**platform:** PC, PS4, PS5
+**build:** v1.50+ (Diamond Casino Heist)
+**logged:** July 2024
+**last checked:** October 2025
+**source:** community (3 sources)
+**severity:** SEV-3 | **priority:** P3 | **status:** OPEN
 
 ### what's happening
 
-At the start of the Diamond Casino Heist finale, one crew member (usually in a 4-player lobby) spawns inside wall geometry instead of at a proper spawn point. They're alive, camera works, but they literally cannot move. Stuck for the whole heist unless you restart.
+At the start of the Casino Heist finale, one crew member can spawn inside wall geometry. They're alive and the camera works but they literally can't move. Stuck for the whole run unless you restart.
 
-This seems to affect the 3rd or 4th player in the lobby assignment order most often, but it's not perfectly consistent. Happens across all three approaches (silent & sneaky, aggressive, big con).
-
----
-
-### environment
-
-- heist: Diamond Casino Heist finale, all approaches
-- crew size: mostly reported with 4-player crews, less common with 2
-- platform: PC + console
-
----
+Seems to hit the 3rd or 4th player in the lobby order most often but it's not consistent. Happens on all three approaches.
 
 ### steps to reproduce
 
-*(low reproduction rate — this is the setup that increases probability)*
+1. full 4-player crew, Casino Heist finale
+2. launch the heist
+3. watch the spawn — one player (usually 3rd or 4th) might appear inside a wall or pillar
+4. they can look around but can't move or interact with anything
+5. rest of the crew loads in fine, heist continues without them
 
-1. set up Casino Heist finale with a full 4-player crew
-2. assign roles — two primaries, two support
-3. launch the finale
-4. at the initial spawn sequence, watch all four spawn points
-5. **what happens:** one player (typically 3rd or 4th assigned) appears inside geometry — inside a wall, pillar, or clipped below floor level
-6. that player is stuck. can look around but can't move, sprint, or interact with anything
-7. rest of the crew proceeds normally. heist technically continues
-
----
-
-### expected
-
-All four crew members spawn at accessible positions at the heist start. Everyone can immediately move and play.
-
-### actual
-
-One player spawns inside geometry. Effectively removed from the heist unless session is restarted. No way to self-recover from inside the geometry.
-
----
-
-### reproducibility
-
-~15-20% in 4-player heist runs. Not deterministic — can't force it. Running with 2 players seems to reduce it significantly.
-
----
+*reproduction rate is low-ish, maybe 1 in 5 or 6 runs with a full 4 player lobby. 2-player seems to reduce it a lot.*
 
 ### workaround
 
-If you see someone spawn stuck, restart the heist immediately rather than continuing. Running 2-player reduces but doesn't eliminate the chance. No mid-session fix exists — the stuck player cannot recover themselves.
-
----
+if someone spawns stuck just restart immediately, no point continuing. 2-player reduces the odds. no in-session fix.
 
 ### sources
 
-- r/gtaonline — multiple reports Jun-Aug 2024 of crew geometry spawns in Casino Heist finale
-- GTA Forums — Casino Heist bug compilation thread
-- YouTube — gameplay clips showing player stuck in spawn geometry at heist start
+- r/gtaonline — Jun-Aug 2024 reports
+- GTA Forums bug thread
+- YouTube — clips of players stuck in spawn geo
