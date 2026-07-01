@@ -1,72 +1,58 @@
-## BUG-003 — Desync'd NPC vehicles make player ragdoll like they got hit by a bus
+## BUG-003 — Desynced NPC cars sending player ragdoll way too far
 
-**game:** GTA Online  
-**platform:** PC, PS4/PS5  
-**build:** noticed post-v1.66 (after the E&E NPC physics update)  
-**logged:** May 2024  
-**last checked:** December 2025  
-**source:** community-sourced (cross-verified — reddit + youtube footage)  
-**severity:** SEV-3  
-**priority:** P3  
-**status:** OPEN
+**game:** GTA Online
+**platform:** PC + console
+**build:** started noticing post-v1.66 (E&E NPC physics update)
+**logged:** May 2024
+**last checked:** December 2025
+**source:** community (reddit + yt footage)
+**severity:** SEV-3 | **priority:** P3 | **status:** OPEN
 
 ---
 
 ### what's happening
 
-In public sessions, if you get hit by an NPC vehicle that's in a desync'd/glitched state (you can usually tell — they're stuttering, teleporting slightly, moving weird), the collision physics on your character goes completely wrong. Instead of a normal hit reaction proportional to the car's speed and mass, you get launched like you were hit by a truck doing 100mph even if the car was barely moving.
+In public sessions, if you get clipped by an NPC vehicle that's in a desync state — you can usually tell, they're stuttering or teleporting slightly — the collision physics completely loses the plot. Instead of a proportional hit reaction you just get launched. Like full truck-speed impact from a car that was barely moving.
 
-The weird part: other players in the same session don't see you get hit the same way you experience it. So it's client-side — your game is applying the wrong physics model to the collision because the NPC's state is desynced from the server.
+The client-side part is what makes it obvious it's a bug: other players in the same session see a normal-ish collision on their screen while you're watching yourself fly 30 meters. Your game is applying the wrong physics model because the NPC's state is desynced from the server.
 
-This started being noticeable after the v1.66 physics updates to NPC vehicles. Seems like the updated physics model and the old pre-patch model can conflict when a vehicle is in a bad network state.
-
----
-
-### environment
-
-- platform: PC + console
-- session type: public free roam (higher-latency sessions seem worse)
-- trigger: getting hit by an NPC vehicle in a desync'd/glitched state
-- player condition: on foot or in a vehicle, both affected
+Started being noticeable after the v1.66 physics update. My guess is the updated and old pre-patch physics models can conflict when a vehicle is in a bad network state, and your client just picks one at random basically.
 
 ---
 
-### steps to reproduce
+### how to see it
 
-*(can't reproduce on demand — depends on NPC state)*
+*(can't reproduce on demand, depends on NPC network state)*
 
-1. join a public free roam session — higher latency = higher chance of seeing this
-2. watch NPC vehicle traffic. look for vehicles acting wrong: stuttering, teleporting short distances, clipping through things
-3. let one of those vehicles hit you (on foot or in a car)
-4. **what happens:** ragdoll goes completely disproportionate — you get flung way further than the collision should produce, or the ragdoll loops longer than normal
-5. check with other players in session — they often don't see the same collision on their screen
+- join a high-latency public session — higher latency = more desynced NPCs
+- watch traffic for vehicles acting wrong: stuttering, slight teleporting, clipping through props
+- get near one of those vehicles on foot or in a car
+- if it clips you: ragdoll is wildly out of proportion to the actual impact
+- confirm with another player — they usually see nothing weird on their end
 
 ---
 
-### expected
+### expected vs actual
 
-Collision response is proportional to NPC vehicle speed and mass at point of impact. Consistent with how physics normally work in the session.
-
-### actual
-
-Collision triggers a ragdoll using what looks like the pre-v1.66 physics coefficients — much higher effective mass/velocity applied to the NPC vehicle. Only the affected player experiences it this way; it's client-side.
+**expected:** collision force proportional to NPC vehicle speed/mass
+**actual:** client applies old physics coefficients to the desynced vehicle, hit registers as much higher mass/velocity than real. only happens on that client.
 
 ---
 
 ### reproducibility
 
-Around 30-50% in high-latency public sessions. Not controllable — depends on whether there's a desync'd NPC nearby and you end up in contact with it. Hard to test systematically because the trigger condition isn't something you can force.
+happens a fair amount in chaotic high-latency public sessions. can't put a reliable number on it because you can't control whether a desynced NPC is nearby. invite-only sessions don't have the desync condition so it doesn't happen there.
 
 ---
 
 ### workaround
 
-Avoid walking near NPC traffic in chaotic public sessions. Using invite-only removes the network desync condition and this doesn't happen. No in-session fix.
+stay out of NPC traffic in crowded public sessions. invite-only removes the condition entirely.
 
 ---
 
 ### sources
 
-- r/gtaonline — threads around "NPC cars sending me flying for no reason" topic, multiple reports Apr-Jun 2024
-- YouTube — two independent gameplay clips showing the disproportionate ragdoll from NPC hits
+- r/gtaonline — "NPC cars sending me flying" threads Apr-Jun 2024, multiple independent reports
+- YouTube — two clips showing the disproportionate ragdoll from NPC hits
 - GTA Forums — physics regression thread post-E&E update
