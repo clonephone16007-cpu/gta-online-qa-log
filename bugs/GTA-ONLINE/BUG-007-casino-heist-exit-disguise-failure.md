@@ -1,77 +1,54 @@
-## BUG-007 — Casino heist big con: exit disguise randomly stops working
+## BUG-007 — Casino heist big con: exit disguise randomly blows for no reason
 
-**game:** GTA Online  
-**platform:** PC, PS4, PS5  
-**build:** v1.50+  
-**logged:** August 2024  
-**last checked:** November 2025  
-**source:** community-sourced (3 independent sources)  
-**severity:** SEV-2  
-**priority:** P2  
-**status:** OPEN
+**game:** GTA Online
+**platform:** PC, PS4, PS5
+**build:** v1.50+
+**logged:** August 2024
+**last checked:** November 2025
+**source:** community (3 sources)
+**severity:** SEV-2 | **priority:** P2 | **status:** OPEN
+
+> still not 100% sure on the trigger condition. the rate is hard to pin down. documenting what i know so far.
 
 ---
 
 ### what's happening
 
-The Big Con approach's whole point is that you walk out of the Casino in disguise and the wanted level doesn't trigger. Gruppe Sechs uniform or Yung Ancestor outfit — the game is supposed to suppress detection while you walk to the exit.
+Big Con — whole point of the approach is you walk out in disguise and the wanted level doesn't trigger. Gruppe Sechs or Yung Ancestor outfit, game is supposed to suppress detection while you head to the exit.
 
-This bug causes that suppression to fail intermittently. Mid-walk-out, with no aggressive action taken, a wanted level gets applied to one or more crew members. The police response triggers like the disguise condition isn't active at all. The entire strategic advantage of the Big Con approach is gone in one moment.
+Sometimes mid-walkout, doing nothing wrong, a wanted level just appears. 1-2 stars then escalates. Police respond like the disguise isn't active at all. The clean exit that people chose this approach specifically for just falls apart.
 
-From the community reports it seems like NPC proximity or something in the Casino's detection zone can break the disguise condition even when nothing the player does should trigger it.
-
----
-
-### environment
-
-- heist: Diamond Casino Heist — Big Con approach only
-- disguise type: Gruppe Sechs and Yung Ancestor both affected
-- phase: exit walk-out sequence (heading toward Casino entrance/exit in disguise)
-- suspected trigger: NPC proximity or specific detection zone during walk-out
+Suspect it's something to do with NPC proximity or a specific detection zone inside the Casino but nobody's nailed the exact condition. Could also just be a state bug where the disguise flag drops randomly, not sure.
 
 ---
 
 ### steps to reproduce
 
-1. Diamond Casino Heist — Big Con approach, either disguise
-2. complete vault phase
-3. begin the exit walk-out in disguise — moving calmly toward exit, no weapons, no running
-4. **what happens (intermittently):** wanted level appears mid-walk. 1-2 stars initially, sometimes escalating to 5 before reaching exit
-5. police response triggers as if disguise is inactive
-6. crew forced into combat/escape instead of clean exit
+1. Big Con, either disguise
+2. complete vault, start the exit walkout
+3. move calmly toward the exit — no weapons out, no running, nothing that should break cover
+4. **intermittently:** wanted stars appear mid-walk
+5. escalates to 5 and you're now in a full escape run instead of a clean exit
+
+*I've seen people say staying away from security NPCs helps but I haven't tested this enough to confirm it. could just be placebo.*
 
 ---
 
-### expected
+### expected vs actual
 
-Disguise suppresses all wanted detection during the walk-out. Crew reaches exit without police interaction. Wanted level doesn't activate until disguise is intentionally broken or after natural exit.
-
-### actual
-
-Disguise fails. Wanted level appears without any player action that should break cover. The approach's core mechanic — the clean exit — fails due to a system error rather than player mistake.
-
----
-
-### reproducibility
-
-~20-30% of Big Con runs. Inconsistent trigger, suspected NPC or zone-based, but no one has pinned down the exact condition.
+**expected:** disguise suppresses detection for the full walkout
+**actual:** disguise condition drops mid-walkout with no player action that should trigger it
 
 ---
 
 ### workaround
 
-Move directly to exit without stopping or deviating. Avoid getting too close to security NPCs during walk-out. If disguise fails: fall back to combat escape, have vehicles positioned close. No way to re-activate the disguise mid-mission once it's blown.
-
----
-
-### why it matters
-
-People specifically choose the Big Con approach to avoid the 5-star escape phase. When this triggers, they get exactly what they were trying to skip, through no fault of their own. That's a meaningful failure of a core gameplay mechanic in a high-investment activity.
+go straight to the exit, don't deviate. if it fails anyway: have a vehicle close. you can't re-activate the disguise once it's blown.
 
 ---
 
 ### sources
 
-- r/gtaonline — "big con disguise getting blown" threads, Jul-Oct 2024
-- GTA Forums — Casino Heist Big Con bug documentation
-- YouTube — footage of disguise failure during walk-out (2 independent clips reviewed)
+- r/gtaonline — "big con disguise getting blown" threads Jul-Oct 2024
+- GTA Forums — Big Con bug section
+- YouTube — two clips of disguise failure during walkout
