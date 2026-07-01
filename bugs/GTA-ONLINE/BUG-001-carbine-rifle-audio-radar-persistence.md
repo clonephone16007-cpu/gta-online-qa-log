@@ -1,24 +1,22 @@
-## BUG-001 — Carbine Rifle suppressor: off-radar state + audio doesn't reset after long session
+## BUG-001 — Carbine Rifle suppressor: off-radar state + audio stuck after long session
 
-**game:** GTA Online  
-**platform:** PC  
-**build:** v1.68+ (Los Santos Drug Wars) — still present in recent patches  
-**logged:** January 2024  
-**last checked:** March 2026  
-**source:** personal — reproduced myself across multiple sessions  
-**severity:** SEV-2  
-**priority:** P2  
-**status:** OPEN
+**game:** GTA Online
+**platform:** PC (Steam)
+**build:** v1.68+ — still showing up in recent patches
+**logged:** January 2024
+**last checked:** March 2026
+**source:** personal, reproduced multiple times
+**severity:** SEV-2 | **priority:** P2 | **status:** OPEN
 
 ---
 
 ### what's happening
 
-The carbine rifle (standard and mk2) has a suppressor attachment that gives you a temporary off-radar effect while firing. That's intended — it's supposed to drop off ~3-5 seconds after you stop shooting.
+The suppressor on the carbine (standard + mk2) is supposed to give you a temporary off-radar window while firing, then drop ~3-5s after you stop. That's normal and intended.
 
-After a long session (usually 60-90+ mins of continuous play) that off-radar state stops clearing properly. It just... stays. You're off the radar permanently without firing, and the suppressed audio stays on too. It survives going into missions, entering interiors, all of it. The only thing that actually fixes it is swapping off the weapon or leaving the session entirely.
+Problem: after a long session — usually somewhere past the 60-90 min mark — that off-radar state just stops clearing. You stay invisible on the map even when you're not firing. Audio stays suppressed too. It survives mission loads, interior transitions, all of it. Only things that actually fix it are weapon swap or leaving the session.
 
-I noticed this first during a long freemode grind session in Jan 2024. Thought I was imagining it at first, then reproduced it intentionally a few more times.
+First noticed this in Jan 2024 during a long freemode grind. Thought I was imagining it. Reproduced it intentionally maybe 4-5 times since.
 
 ---
 
@@ -26,60 +24,56 @@ I noticed this first during a long freemode grind session in Jan 2024. Thought I
 
 - platform: PC (Steam)
 - session type: public free roam
-- session length when it triggers: 60-90+ mins
-- weapon: carbine rifle / carbine rifle mk2, suppressor equipped
-- happened on two different characters
+- session duration at trigger: 60+ mins, usually closer to 90
+- weapon: carbine rifle or carbine mk2, suppressor attached
+- two different characters, same result
 
 ---
 
 ### steps to reproduce
 
-1. join a public free roam session
-2. equip carbine rifle or carbine mk2 with suppressor on
-3. stay in session, do normal freemode stuff — missions, grinding, whatever. key thing is staying in the same session for 60+ mins
-4. after about an hour, start paying attention to your radar when you fire the suppressed carbine
-5. fire a few shots, then stop
-6. watch the minimap — the off-radar blip should come back within a few seconds
-7. **what happens instead:** off-radar doesn't clear. you stay invisible on the map even after stopping
-8. go enter an interior or join a quick job to cause a soft transition
-9. come back out — still off radar. audio still suppressed.
+1. join public free roam
+2. equip carbine (standard or mk2) with suppressor
+3. just play normally — missions, grinding, whatever — stay in the same session for 60+ mins
+4. at some point start watching the minimap after you fire the suppressed carbine
+5. fire a burst, stop shooting, wait
+6. **off-radar blip doesn't come back.** stays cleared even standing still doing nothing
+7. enter an interior or join a contact mission to force a soft transition
+8. come back to freemode — still off radar
 
-note: doesn't happen every single time, but in sessions over 60 mins I'd say it triggers roughly 70% of the time
+note: mk2 version seems to trigger it slightly more often than standard, not sure if that's real or just confirmation bias on my end
 
 ---
 
-### expected
+### expected vs actual
 
-Off-radar effect clears ~3-5 seconds after last shot. Audio goes back to normal. Session transitions don't affect weapon state.
-
-### actual
-
-Off-radar stays locked on. Weapon audio stays suppressed. Persists through soft transitions. Only clears on weapon re-equip (sometimes) or full session exit.
+**expected:** off-radar clears 3-5s after last shot, always
+**actual:** state gets stuck on after ~60+ min sessions, persists through transitions, only clears on weapon swap or session exit
 
 ---
 
 ### reproducibility
 
-~70% in sessions 60+ mins long. Reproduced personally in 4+ separate sessions. Have seen community posts corroborating this on PC and mentions of it on console too but I can only confirm PC personally.
+happens most of the time in sessions over an hour. not 100% — maybe misses once every few attempts. hard to be precise because you can't really force the exact session state that causes it.
 
 ---
 
 ### workaround
 
-Swap to a different weapon and back — fixes it maybe 85% of the time. If that doesn't work, exit to story mode and rejoin. That always clears it.
+swap to any other weapon and back — works most of the time. if that doesn't clear it, exit to story mode and rejoin. that always fixes it.
 
 ---
 
-### why it matters
+### notes
 
-Permanent off-radar without actively suppressor-firing is a pretty significant PvP advantage in public sessions. Not game-breaking but it's exploitable and it's definitely unintended. The audio side of it also messes with spatial awareness — you lose the audio cue difference between suppressed and unsuppressed fire.
+pretty sure this is a session-duration memory thing — like the suppressor state flag accumulates over a long session and something stops resetting it properly. the mk2 triggering more often might point to the extra weapon flags it uses vs standard.
 
-My guess is it's a session-duration memory issue — something in how the suppressor state flag gets tracked accumulates over long sessions and stops clearing properly. The mk2 version seems to trigger it slightly more often than standard, which might mean the extra weapon flags from the mk2 system are involved somehow.
+not game-breaking but it is a genuine unintended PvP advantage in public lobbies — permanent off-radar without actively firing is pretty significant.
 
 ---
 
 ### sources
 
-- personal reproduction (jan 2024 – mar 2026, 4+ sessions)
-- r/gtaonline threads with multiple users reporting same suppressor state issue, jan-mar 2024
-- rockstar support community — ticket threads on carbine suppressor audio anomalies post-v1.68
+- personal repro (jan 2024 – mar 2026)
+- r/gtaonline — a few threads from jan-mar 2024 with other people hitting the same thing
+- rockstar support forum — ticket threads on carbine suppressor audio anomalies post-v1.68
